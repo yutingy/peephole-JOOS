@@ -833,10 +833,12 @@ goto label2
 label1:
 iconst_1
 label2:
-dummylabel:
+dup
 ifeq label3
+pop
 ->
 if_opposite-condition label3
+something else needed
 
 label1 and label2 drop reference counts by 1 each
 */
@@ -854,13 +856,14 @@ int simplify_if_gotos2(CODE **c){
   && y==1
   && is_label(nextby(*c, 5), &label4)
   && label2==label4
-  && is_label(nextby(*c, 6), &dummylabel)
-  && is_ifeq(nextby(*c, 7), &label5)){
+  && is_dup(nextby(*c, 6))
+  && is_ifeq(nextby(*c, 7), &label5)
+  && is_pop(nextby(*c, 8))){
     droplabel(label1);
     droplabel(label2);
-    return replace(c, 8, makeCODEifne(label5, NULL));
+    return replace(c, 9, makeCODEifne(label5, NULL));
   }
-
+/*follow this above one*/
   if(is_ifne(*c, &label1)
   && is_ldc_int(next(*c), &x)
   && x==0
