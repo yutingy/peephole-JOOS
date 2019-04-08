@@ -115,14 +115,7 @@
   pop
   iload_2
   ldc 8
-  if_icmpeq true_16
-  iconst_0
-  goto stop_17
-  true_16:
-  iconst_1
-  stop_17:
-  true_10:
-  ifeq else_8
+  if_icmpne else_8
   aload_1
   ldc "|"
   invokevirtual joos/lib/JoosIO/print(Ljava/lang/String;)V
@@ -164,14 +157,7 @@
   pop
   iload_3
   ldc 12
-  if_icmpeq true_29
-  iconst_0
-  goto stop_30
-  true_29:
-  iconst_1
-  stop_30:
-  true_20:
-  ifeq else_18
+  if_icmpne else_18
   aload_1
   ldc "|"
   invokevirtual joos/lib/JoosIO/print(Ljava/lang/String;)V
@@ -242,14 +228,7 @@
   pop
   iload_2
   ldc 8
-  if_icmpne true_42
-  iconst_0
-  goto stop_43
-  true_42:
-  iconst_1
-  stop_43:
-  false_36:
-  ifeq stop_35
+  if_icmpeq stop_35
   iinc 4 1
   stop_35:
   aload_1

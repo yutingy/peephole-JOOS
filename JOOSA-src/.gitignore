@@ -1,4 +1,7 @@
 joos
+JOOSlib/
+PeepholeBenchmarks/
+JOOSexterns/
 lex.yy.c
 y.tab.c
 y.tab.h

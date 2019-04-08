@@ -823,6 +823,234 @@ int simplify_if_gotos(CODE **c){
 
 }
 
+/* bench03 decoder.j. same as above but with extra dead code in the middle
+
+behavior: condition -> not L3, else -> L3
+
+if_condition label1
+iconst_0
+goto label2
+label1:
+iconst_1
+label2:
+dummylabel:
+ifeq label3
+->
+if_opposite-condition label3
+
+label1 and label2 drop reference counts by 1 each
+*/
+
+int simplify_if_gotos2(CODE **c){
+  int label1, label2, label3, label4, label5, dummylabel, x, y;
+
+  if(is_ifeq(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEifne(label5, NULL));
+  }
+
+  if(is_ifne(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEifeq(label5, NULL));
+  }
+
+  if(is_if_icmpne(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEif_icmpeq(label5, NULL));
+  }
+
+  if(is_if_icmpeq(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEif_icmpne(label5, NULL));
+  }
+
+  if(is_if_acmpeq(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEif_acmpne(label5, NULL));
+  }
+
+  if(is_if_icmpge(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEif_icmplt(label5, NULL));
+  }
+
+  if(is_if_icmplt(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEif_icmpge(label5, NULL));
+  }
+
+  if(is_if_icmple(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEif_icmpgt(label5, NULL));
+  }
+
+  if(is_if_icmpgt(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEif_icmple(label5, NULL));
+  }
+
+  if(is_ifnull(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEifnonnull(label5, NULL));
+  }
+
+  if(is_if_acmpeq(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEif_acmpne(label5, NULL));
+  }
+
+  if(is_if_acmpne(*c, &label1)
+  && is_ldc_int(next(*c), &x)
+  && x==0
+  && is_goto(nextby(*c, 2), &label2)
+  && is_label(nextby(*c, 3), &label3)
+  && label1==label3
+  && is_ldc_int(nextby(*c, 4), &y)
+  && y==1
+  && is_label(nextby(*c, 5), &label4)
+  && label2==label4
+  && is_label(nextby(*c, 6), &dummylabel)
+  && is_ifeq(nextby(*c, 7), &label5)){
+    droplabel(label1);
+    droplabel(label2);
+    return replace(c, 8, makeCODEif_acmpeq(label5, NULL));
+  }
+
+  return 0;
+
+}
 
 /*
 dup
@@ -1588,6 +1816,11 @@ void init_patterns(void) {
 
 
   ADD_PATTERN(dup_if_pop);
+
+
+  ADD_PATTERN(simplify_if_gotos2)
+
+
   ADD_PATTERN(arithmetic_with_ones);
 
 

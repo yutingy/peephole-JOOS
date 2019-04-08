@@ -262,6 +262,7 @@
   iconst_0
   invokevirtual BacktrackSolver/setVal(III)V
   stop_15:
+  stop_2:
   return
 .end method
 
