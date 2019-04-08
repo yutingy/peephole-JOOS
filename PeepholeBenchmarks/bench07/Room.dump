@@ -1,0 +1,1047 @@
+; magic number 0xCAFEBABE
+; bytecode version 45.3
+
+; constant pool count 187
+; cp[1] (offset 0xf) -> CONSTANT_Integer 40
+; cp[2] (offset 0x14) -> CONSTANT_Methodref 83, 77
+; cp[3] (offset 0x19) -> CONSTANT_NameAndType 90, 174
+; cp[4] (offset 0x23) -> CONSTANT_Utf8 "println"
+; cp[5] (offset 0x28) -> CONSTANT_NameAndType 100, 15
+; cp[6] (offset 0x2d) -> CONSTANT_NameAndType 53, 24
+; cp[7] (offset 0x32) -> CONSTANT_NameAndType 12, 99
+; cp[8] (offset 0x44) -> CONSTANT_Utf8 "EmptyRoomAction"
+; cp[9] (offset 0x4f) -> CONSTANT_Utf8 "getSouth"
+; cp[10] (offset 0x54) -> CONSTANT_Methodref 162, 110
+; cp[11] (offset 0x59) -> CONSTANT_Methodref 62, 144
+; cp[12] (offset 0x62) -> CONSTANT_Utf8 "equals"
+; cp[13] (offset 0x67) -> CONSTANT_Integer 31
+; cp[14] (offset 0x6c) -> CONSTANT_Methodref 83, 175
+; cp[15] (offset 0x72) -> CONSTANT_Utf8 "()V"
+; cp[16] (offset 0x75) -> CONSTANT_String 142
+; cp[17] (offset 0x84) -> CONSTANT_Utf8 "BFRoomAction"
+; cp[18] (offset 0xbf) -> CONSTANT_Utf8 "It is pitch black. You are likely to be eaten by a grue."
+; cp[19] (offset 0xc2) -> CONSTANT_Class 73
+; cp[20] (offset 0xc7) -> CONSTANT_Fieldref 83, 26
+; cp[21] (offset 0xdd) -> CONSTANT_Utf8 "joos/lib/JoosRandom"
+; cp[22] (offset 0xe3) -> CONSTANT_Utf8 "()I"
+; cp[23] (offset 0xe8) -> CONSTANT_Methodref 104, 110
+; cp[24] (offset 0x100) -> CONSTANT_Utf8 "(I)Ljava/lang/String;"
+; cp[25] (offset 0x105) -> CONSTANT_Fieldref 83, 145
+; cp[26] (offset 0x10a) -> CONSTANT_NameAndType 68, 186
+; cp[27] (offset 0x10f) -> CONSTANT_Methodref 178, 110
+; cp[28] (offset 0x114) -> CONSTANT_Methodref 78, 110
+; cp[29] (offset 0x11f) -> CONSTANT_Utf8 "()LRoom;"
+; cp[30] (offset 0x124) -> CONSTANT_Methodref 180, 110
+; cp[31] (offset 0x1f9) -> CONSTANT_Utf8 "You are in a dusty padded room. On a simple desk in the middle of the room, a terminal displays '++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.'."
+; cp[32] (offset 0x1fe) -> CONSTANT_Integer 23
+; cp[33] (offset 0x203) -> CONSTANT_Integer 9
+; cp[34] (offset 0x208) -> CONSTANT_Integer 8
+; cp[35] (offset 0x20d) -> CONSTANT_Integer 7
+; cp[36] (offset 0x212) -> CONSTANT_Integer 6
+; cp[37] (offset 0x2e5) -> CONSTANT_Utf8 "You are in into a delapidated theater. The seats are empty and broken, the banners all ripped to shreds. Yet standing behind a splintered podium at the center of the stage, a lanky, bald man stands patiently."
+; cp[38] (offset 0x2ea) -> CONSTANT_Methodref 83, 116
+; cp[39] (offset 0x32b) -> CONSTANT_Utf8 "You are in a forest. You hear the leaves rustling in the wind."
+; cp[40] (offset 0x330) -> CONSTANT_Integer 1337
+; cp[41] (offset 0x348) -> CONSTANT_Utf8 "(Ljava/lang/String;)V"
+; cp[42] (offset 0x34d) -> CONSTANT_Methodref 83, 6
+; cp[43] (offset 0x352) -> CONSTANT_Utf8 "io"
+; cp[44] (offset 0x357) -> CONSTANT_Methodref 184, 110
+; cp[45] (offset 0x35a) -> CONSTANT_String 105
+; cp[46] (offset 0x397) -> CONSTANT_Utf8 "=========================================================="
+; cp[47] (offset 0x39c) -> CONSTANT_Integer 15
+; cp[48] (offset 0x3a1) -> CONSTANT_Integer 12
+; cp[49] (offset 0x3a4) -> CONSTANT_Class 85
+; cp[50] (offset 0x3a9) -> CONSTANT_Integer 11
+; cp[51] (offset 0x3ae) -> CONSTANT_Integer 10
+; cp[52] (offset 0x3b3) -> CONSTANT_NameAndType 133, 135
+; cp[53] (offset 0x3c9) -> CONSTANT_Utf8 "generateDescription"
+; cp[54] (offset 0x3d7) -> CONSTANT_Utf8 "randomRange"
+; cp[55] (offset 0x3e8) -> CONSTANT_Utf8 "CoinRoomAction"
+; cp[56] (offset 0x3f4) -> CONSTANT_Utf8 "enterRoom"
+; cp[57] (offset 0x3fe) -> CONSTANT_Utf8 " -north"
+; cp[58] (offset 0x403) -> CONSTANT_Methodref 103, 110
+; cp[59] (offset 0x408) -> CONSTANT_Methodref 63, 110
+; cp[60] (offset 0x416) -> CONSTANT_Utf8 "description"
+; cp[61] (offset 0x41b) -> CONSTANT_Fieldref 83, 148
+; cp[62] (offset 0x41e) -> CONSTANT_Class 177
+; cp[63] (offset 0x421) -> CONSTANT_Class 122
+; cp[64] (offset 0x424) -> CONSTANT_String 72
+; cp[65] (offset 0x42e) -> CONSTANT_Utf8 " -south"
+; cp[66] (offset 0x431) -> CONSTANT_Class 21
+; cp[67] (offset 0x434) -> CONSTANT_Class 130
+; cp[68] (offset 0x43c) -> CONSTANT_Utf8 "north"
+; cp[69] (offset 0x445) -> CONSTANT_Utf8 " -west"
+; cp[70] (offset 0x47d) -> CONSTANT_Utf8 "You are in a non-descript room. How did you get here?"
+; cp[71] (offset 0x48e) -> CONSTANT_Utf8 "ExitRoomAction"
+; cp[72] (offset 0x4de) -> CONSTANT_Utf8 "You see before you a vast desert. High overhead, vultures are circling above."
+; cp[73] (offset 0x4f1) -> CONSTANT_Utf8 "java/lang/String"
+; cp[74] (offset 0x4fa) -> CONSTANT_Utf8 "Room.j"
+; cp[75] (offset 0x560) -> CONSTANT_Utf8 "You are in a large hall. Centered in this otherwise empty and silent room is an alabaster pedestal."
+; cp[76] (offset 0x571) -> CONSTANT_Utf8 "JokeRoomAction"
+; cp[77] (offset 0x576) -> CONSTANT_NameAndType 54, 181
+; cp[78] (offset 0x579) -> CONSTANT_Class 8
+; cp[79] (offset 0x581) -> CONSTANT_Utf8 "south"
+; cp[80] (offset 0x586) -> CONSTANT_Methodref 67, 110
+; cp[81] (offset 0x589) -> CONSTANT_String 68
+; cp[82] (offset 0x58e) -> CONSTANT_NameAndType 95, 22
+; cp[83] (offset 0x591) -> CONSTANT_Class 179
+; cp[84] (offset 0x596) -> CONSTANT_Methodref 83, 152
+; cp[85] (offset 0x5a3) -> CONSTANT_Utf8 "RoomAction"
+; cp[86] (offset 0x5a6) -> CONSTANT_String 160
+; cp[87] (offset 0x5ab) -> CONSTANT_Methodref 19, 7
+; cp[88] (offset 0x5c0) -> CONSTANT_Utf8 "Ljava/lang/String;"
+; cp[89] (offset 0x5c9) -> CONSTANT_Utf8 " -east"
+; cp[90] (offset 0x5d2) -> CONSTANT_Utf8 "action"
+; cp[91] (offset 0x5e5) -> CONSTANT_Utf8 "There are exits:"
+; cp[92] (offset 0x68a) -> CONSTANT_Utf8 "You are in a dark cave through which a small bubbling creek passes. There are a dozen skeletons, all resting alongside this stream. You search them for valuables."
+; cp[93] (offset 0x68d) -> CONSTANT_String 79
+; cp[94] (offset 0x692) -> CONSTANT_Methodref 165, 110
+; cp[95] (offset 0x69c) -> CONSTANT_Utf8 "nextInt"
+; cp[96] (offset 0x6b1) -> CONSTANT_Utf8 "TreasureRoomAction"
+; cp[97] (offset 0x6b6) -> CONSTANT_Fieldref 83, 124
+; cp[98] (offset 0x6bb) -> CONSTANT_Methodref 66, 82
+; cp[99] (offset 0x6d3) -> CONSTANT_Utf8 "(Ljava/lang/Object;)Z"
+; cp[100] (offset 0x6de) -> CONSTANT_Utf8 "describe"
+; cp[101] (offset 0x6e3) -> CONSTANT_Fieldref 83, 3
+; cp[102] (offset 0x6f5) -> CONSTANT_Utf8 "FeastRoomAction"
+; cp[103] (offset 0x6f8) -> CONSTANT_Class 171
+; cp[104] (offset 0x6fb) -> CONSTANT_Class 17
+; cp[105] (offset 0x815) -> CONSTANT_Utf8 "You are in a large banquet hall. Spread before you on a table long enough to seat a hundred people is a feast of unimaginable bounty, but there is nobody here. As you walk along it, you see your favorite foods nestled in between delicious-looking foods that you cannot even name."
+; cp[106] (offset 0x81a) -> CONSTANT_Integer 100
+; cp[107] (offset 0x81d) -> CONSTANT_String 154
+; cp[108] (offset 0x822) -> CONSTANT_Methodref 62, 110
+; cp[109] (offset 0x825) -> CONSTANT_String 57
+; cp[110] (offset 0x82a) -> CONSTANT_NameAndType 133, 15
+; cp[111] (offset 0x82f) -> CONSTANT_Methodref 166, 110
+; cp[112] (offset 0x832) -> CONSTANT_String 117
+; cp[113] (offset 0x835) -> CONSTANT_String 18
+; cp[114] (offset 0x83a) -> CONSTANT_NameAndType 133, 173
+; cp[115] (offset 0x83d) -> CONSTANT_String 138
+; cp[116] (offset 0x842) -> CONSTANT_NameAndType 182, 29
+; cp[117] (offset 0x908) -> CONSTANT_Utf8 "You are in a small room. On the east wall, there is a large rusty panel. At the top, two numbered dials spin rapidly, followed by an exclamation point. Below, there are 9 numbered dials spinning."
+; cp[118] (offset 0x91c) -> CONSTANT_Utf8 "Ljoos/lib/JoosIO;"
+; cp[119] (offset 0x91f) -> CONSTANT_String 91
+; cp[120] (offset 0x930) -> CONSTANT_Utf8 "()LRoomAction;"
+; cp[121] (offset 0x937) -> CONSTANT_Utf8 "Code"
+; cp[122] (offset 0x94a) -> CONSTANT_Utf8 "java/lang/Object"
+; cp[123] (offset 0x94d) -> CONSTANT_String 65
+; cp[124] (offset 0x952) -> CONSTANT_NameAndType 79, 186
+; cp[125] (offset 0x955) -> CONSTANT_String 131
+; cp[126] (offset 0x95a) -> CONSTANT_Integer 85
+; cp[127] (offset 0x95d) -> CONSTANT_String 92
+; cp[128] (offset 0x962) -> CONSTANT_Fieldref 83, 161
+; cp[129] (offset 0x978) -> CONSTANT_Utf8 "FactorialRoomAction"
+; cp[130] (offset 0x989) -> CONSTANT_Utf8 "HuntRoomAction"
+; cp[131] (offset 0xa40) -> CONSTANT_Utf8 "You find yourself in a completely white room with no features other than the exits. You cannot tell whether the white ceiling is nearby or far away, and it's too far away to reach."
+; cp[132] (offset 0xa45) -> CONSTANT_Methodref 83, 52
+; cp[133] (offset 0xa4e) -> CONSTANT_Utf8 "<init>"
+; cp[134] (offset 0xa51) -> CONSTANT_String 39
+; cp[135] (offset 0xa70) -> CONSTANT_Utf8 "(LRoom;Ljava/lang/String;I)V"
+; cp[136] (offset 0xa73) -> CONSTANT_String 31
+; cp[137] (offset 0xa76) -> CONSTANT_String 185
+; cp[138] (offset 0xa7d) -> CONSTANT_Utf8 "west"
+; cp[139] (offset 0xa80) -> CONSTANT_String 164
+; cp[140] (offset 0xa85) -> CONSTANT_Integer 72
+; cp[141] (offset 0xa92) -> CONSTANT_Utf8 "SourceFile"
+; cp[142] (offset 0xb10) -> CONSTANT_Utf8 "You are in a small cottage. It looks like nobody's lived here for a long time, and a thick layer of dust covers everything."
+; cp[143] (offset 0xb13) -> CONSTANT_String 46
+; cp[144] (offset 0xb18) -> CONSTANT_NameAndType 4, 41
+; cp[145] (offset 0xb1d) -> CONSTANT_NameAndType 138, 186
+; cp[146] (offset 0xb20) -> CONSTANT_String 69
+; cp[147] (offset 0xb25) -> CONSTANT_NameAndType 43, 118
+; cp[148] (offset 0xb2a) -> CONSTANT_NameAndType 164, 186
+; cp[149] (offset 0xb2f) -> CONSTANT_NameAndType 183, 29
+; cp[150] (offset 0xb34) -> CONSTANT_NameAndType 158, 29
+; cp[151] (offset 0xb39) -> CONSTANT_Methodref 83, 149
+; cp[152] (offset 0xb3e) -> CONSTANT_NameAndType 172, 15
+; cp[153] (offset 0xb43) -> CONSTANT_Methodref 66, 114
+; cp[154] (offset 0xbe1) -> CONSTANT_Utf8 "You are in a hall with nothing of note other than a lone stone staircase rising up into the air before you. It does not appear to be supported by anything."
+; cp[155] (offset 0xbe6) -> CONSTANT_Integer 62
+; cp[156] (offset 0xbe9) -> CONSTANT_String 70
+; cp[157] (offset 0xbf9) -> CONSTANT_Utf8 "getRoomAction"
+; cp[158] (offset 0xc03) -> CONSTANT_Utf8 "getWest"
+; cp[159] (offset 0xc08) -> CONSTANT_Methodref 83, 150
+; cp[160] (offset 0xc31) -> CONSTANT_Utf8 "You are in a large underground cavern."
+; cp[161] (offset 0xc36) -> CONSTANT_NameAndType 60, 88
+; cp[162] (offset 0xc39) -> CONSTANT_Class 55
+; cp[163] (offset 0xc3c) -> CONSTANT_String 37
+; cp[164] (offset 0xc43) -> CONSTANT_Utf8 "east"
+; cp[165] (offset 0xc46) -> CONSTANT_Class 129
+; cp[166] (offset 0xc49) -> CONSTANT_Class 102
+; cp[167] (offset 0xc4c) -> CONSTANT_String 89
+; cp[168] (offset 0xc51) -> CONSTANT_Integer 50
+; cp[169] (offset 0xc54) -> CONSTANT_String 75
+; cp[170] (offset 0xc59) -> CONSTANT_Fieldref 83, 147
+; cp[171] (offset 0xc6a) -> CONSTANT_Utf8 "GrueRoomAction"
+; cp[172] (offset 0xc7b) -> CONSTANT_Utf8 "getDescription"
+; cp[173] (offset 0xc82) -> CONSTANT_Utf8 "(I)V"
+; cp[174] (offset 0xc91) -> CONSTANT_Utf8 "LRoomAction;"
+; cp[175] (offset 0xc96) -> CONSTANT_NameAndType 9, 29
+; cp[176] (offset 0xc9b) -> CONSTANT_Methodref 49, 5
+; cp[177] (offset 0xcad) -> CONSTANT_Utf8 "joos/lib/JoosIO"
+; cp[178] (offset 0xcb0) -> CONSTANT_Class 71
+; cp[179] (offset 0xcb7) -> CONSTANT_Utf8 "Room"
+; cp[180] (offset 0xcba) -> CONSTANT_Class 96
+; cp[181] (offset 0xcc1) -> CONSTANT_Utf8 "(I)I"
+; cp[182] (offset 0xccc) -> CONSTANT_Utf8 "getNorth"
+; cp[183] (offset 0xcd6) -> CONSTANT_Utf8 "getEast"
+; cp[184] (offset 0xcd9) -> CONSTANT_Class 76
+; cp[185] (offset 0xcdc) -> CONSTANT_Utf8 ""
+; cp[186] (offset 0xce5) -> CONSTANT_Utf8 "LRoom;"
+
+; access flags = 0x21 [ ACC_SUPER ACC_PUBLIC ]
+; this_class index = 83
+; super_class index = 63
+
+; interfaces_count = 0
+
+
+; fields_count = 7
+
+; fields[0] (offset 0xcef) :
+;     access_flags 0x4 [ ACC_PROTECTED ]
+;     name_index 60 (description)
+;     descriptor_index 88 (Ljava/lang/String;)
+;     attributes_count 0
+
+; fields[1] (offset 0xcf7) :
+;     access_flags 0x4 [ ACC_PROTECTED ]
+;     name_index 68 (north)
+;     descriptor_index 186 (LRoom;)
+;     attributes_count 0
+
+; fields[2] (offset 0xcff) :
+;     access_flags 0x4 [ ACC_PROTECTED ]
+;     name_index 79 (south)
+;     descriptor_index 186 (LRoom;)
+;     attributes_count 0
+
+; fields[3] (offset 0xd07) :
+;     access_flags 0x4 [ ACC_PROTECTED ]
+;     name_index 138 (west)
+;     descriptor_index 186 (LRoom;)
+;     attributes_count 0
+
+; fields[4] (offset 0xd0f) :
+;     access_flags 0x4 [ ACC_PROTECTED ]
+;     name_index 164 (east)
+;     descriptor_index 186 (LRoom;)
+;     attributes_count 0
+
+; fields[5] (offset 0xd17) :
+;     access_flags 0x4 [ ACC_PROTECTED ]
+;     name_index 90 (action)
+;     descriptor_index 174 (LRoomAction;)
+;     attributes_count 0
+
+; fields[6] (offset 0xd1f) :
+;     access_flags 0x4 [ ACC_PROTECTED ]
+;     name_index 43 (io)
+;     descriptor_index 118 (Ljoos/lib/JoosIO;)
+;     attributes_count 0
+
+; methods_count 10
+
+; methods[0] (offset 0xd29) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 133 (<init>)
+;     descriptor_index 135 ((LRoom;Ljava/lang/String;I)V)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 695
+;         max_stack 5
+;         max_locals 6
+;         code_length 683
+;         code :
+;                0: aload_0 
+;                1: invokespecial 59 (java/lang/Object/<init> ()V) 
+;                4: new 62 (joos/lib/JoosIO) 
+;                7: dup 
+;                8: invokespecial 108 (joos/lib/JoosIO/<init> ()V) 
+;               11: dup 
+;               12: aload_0 
+;               13: swap 
+;               14: putfield 170 (Room/io Ljoos/lib/JoosIO;) 
+;               17: pop 
+;               18: iload_3 
+;               19: iconst_1 
+;               20: isub 
+;               21: dup 
+;               22: istore 5 
+;               24: pop 
+;               25: aconst_null 
+;               26: dup 
+;               27: aload_0 
+;               28: swap 
+;               29: putfield 20 (Room/north LRoom;) 
+;               32: pop 
+;               33: aconst_null 
+;               34: dup 
+;               35: aload_0 
+;               36: swap 
+;               37: putfield 97 (Room/south LRoom;) 
+;               40: pop 
+;               41: aconst_null 
+;               42: dup 
+;               43: aload_0 
+;               44: swap 
+;               45: putfield 25 (Room/west LRoom;) 
+;               48: pop 
+;               49: aconst_null 
+;               50: dup 
+;               51: aload_0 
+;               52: swap 
+;               53: putfield 61 (Room/east LRoom;) 
+;               56: pop 
+;               57: iload_3 
+;               58: iconst_0 
+;               59: if_icmpgt 7 
+;               62: iconst_0 
+;               63: goto 4 
+;               66: iconst_1 
+;               67: ifeq 231 
+;               70: aload_2 
+;               71: ldc 93 ("south") 
+;               73: invokevirtual 87 (java/lang/String/equals (Ljava/lang/Object;)Z) 
+;               76: ifeq 14 
+;               79: aload_1 
+;               80: dup 
+;               81: aload_0 
+;               82: swap 
+;               83: putfield 20 (Room/north LRoom;) 
+;               86: pop 
+;               87: goto 40 
+;               90: aload_0 
+;               91: ldc 51 (10) 
+;               93: invokevirtual 2 (Room/randomRange (I)I) 
+;               96: iload_3 
+;               97: if_icmplt 7 
+;              100: iconst_0 
+;              101: goto 4 
+;              104: iconst_1 
+;              105: ifeq 22 
+;              108: new 83 (Room) 
+;              111: dup 
+;              112: aload_0 
+;              113: ldc 81 ("north") 
+;              115: iload 5 
+;              117: invokespecial 132 (Room/<init> (LRoom;Ljava/lang/String;I)V) 
+;              120: dup 
+;              121: aload_0 
+;              122: swap 
+;              123: putfield 20 (Room/north LRoom;) 
+;              126: pop 
+;              127: aload_2 
+;              128: ldc 81 ("north") 
+;              130: invokevirtual 87 (java/lang/String/equals (Ljava/lang/Object;)Z) 
+;              133: ifeq 14 
+;              136: aload_1 
+;              137: dup 
+;              138: aload_0 
+;              139: swap 
+;              140: putfield 97 (Room/south LRoom;) 
+;              143: pop 
+;              144: goto 40 
+;              147: aload_0 
+;              148: ldc 51 (10) 
+;              150: invokevirtual 2 (Room/randomRange (I)I) 
+;              153: iload_3 
+;              154: if_icmplt 7 
+;              157: iconst_0 
+;              158: goto 4 
+;              161: iconst_1 
+;              162: ifeq 22 
+;              165: new 83 (Room) 
+;              168: dup 
+;              169: aload_0 
+;              170: ldc 93 ("south") 
+;              172: iload 5 
+;              174: invokespecial 132 (Room/<init> (LRoom;Ljava/lang/String;I)V) 
+;              177: dup 
+;              178: aload_0 
+;              179: swap 
+;              180: putfield 97 (Room/south LRoom;) 
+;              183: pop 
+;              184: aload_2 
+;              185: ldc 115 ("west") 
+;              187: invokevirtual 87 (java/lang/String/equals (Ljava/lang/Object;)Z) 
+;              190: ifeq 14 
+;              193: aload_1 
+;              194: dup 
+;              195: aload_0 
+;              196: swap 
+;              197: putfield 61 (Room/east LRoom;) 
+;              200: pop 
+;              201: goto 40 
+;              204: aload_0 
+;              205: ldc 51 (10) 
+;              207: invokevirtual 2 (Room/randomRange (I)I) 
+;              210: iload_3 
+;              211: if_icmplt 7 
+;              214: iconst_0 
+;              215: goto 4 
+;              218: iconst_1 
+;              219: ifeq 22 
+;              222: new 83 (Room) 
+;              225: dup 
+;              226: aload_0 
+;              227: ldc 139 ("east") 
+;              229: iload 5 
+;              231: invokespecial 132 (Room/<init> (LRoom;Ljava/lang/String;I)V) 
+;              234: dup 
+;              235: aload_0 
+;              236: swap 
+;              237: putfield 61 (Room/east LRoom;) 
+;              240: pop 
+;              241: aload_2 
+;              242: ldc 139 ("east") 
+;              244: invokevirtual 87 (java/lang/String/equals (Ljava/lang/Object;)Z) 
+;              247: ifeq 14 
+;              250: aload_1 
+;              251: dup 
+;              252: aload_0 
+;              253: swap 
+;              254: putfield 25 (Room/west LRoom;) 
+;              257: pop 
+;              258: goto 40 
+;              261: aload_0 
+;              262: ldc 51 (10) 
+;              264: invokevirtual 2 (Room/randomRange (I)I) 
+;              267: iload_3 
+;              268: if_icmplt 7 
+;              271: iconst_0 
+;              272: goto 4 
+;              275: iconst_1 
+;              276: ifeq 22 
+;              279: new 83 (Room) 
+;              282: dup 
+;              283: aload_0 
+;              284: ldc 115 ("west") 
+;              286: iload 5 
+;              288: invokespecial 132 (Room/<init> (LRoom;Ljava/lang/String;I)V) 
+;              291: dup 
+;              292: aload_0 
+;              293: swap 
+;              294: putfield 25 (Room/west LRoom;) 
+;              297: pop 
+;              298: aload_0 
+;              299: ldc 106 (100) 
+;              301: invokevirtual 2 (Room/randomRange (I)I) 
+;              304: dup 
+;              305: istore 4 
+;              307: pop 
+;              308: iload 4 
+;              310: iconst_5 
+;              311: if_icmplt 7 
+;              314: iconst_0 
+;              315: goto 4 
+;              318: iconst_1 
+;              319: ifeq 25 
+;              322: new 103 (GrueRoomAction) 
+;              325: dup 
+;              326: invokespecial 58 (GrueRoomAction/<init> ()V) 
+;              329: dup 
+;              330: aload_0 
+;              331: swap 
+;              332: putfield 101 (Room/action LRoomAction;) 
+;              335: pop 
+;              336: iconst_0 
+;              337: dup 
+;              338: istore 4 
+;              340: pop 
+;              341: goto 328 
+;              344: iload 4 
+;              346: ldc 47 (15) 
+;              348: if_icmplt 7 
+;              351: iconst_0 
+;              352: goto 4 
+;              355: iconst_1 
+;              356: ifeq 25 
+;              359: new 180 (TreasureRoomAction) 
+;              362: dup 
+;              363: invokespecial 30 (TreasureRoomAction/<init> ()V) 
+;              366: dup 
+;              367: aload_0 
+;              368: swap 
+;              369: putfield 101 (Room/action LRoomAction;) 
+;              372: pop 
+;              373: iconst_1 
+;              374: dup 
+;              375: istore 4 
+;              377: pop 
+;              378: goto 291 
+;              381: iload 4 
+;              383: ldc 32 (23) 
+;              385: if_icmplt 7 
+;              388: iconst_0 
+;              389: goto 4 
+;              392: iconst_1 
+;              393: ifeq 25 
+;              396: new 165 (FactorialRoomAction) 
+;              399: dup 
+;              400: invokespecial 94 (FactorialRoomAction/<init> ()V) 
+;              403: dup 
+;              404: aload_0 
+;              405: swap 
+;              406: putfield 101 (Room/action LRoomAction;) 
+;              409: pop 
+;              410: iconst_2 
+;              411: dup 
+;              412: istore 4 
+;              414: pop 
+;              415: goto 254 
+;              418: iload 4 
+;              420: ldc 13 (31) 
+;              422: if_icmplt 7 
+;              425: iconst_0 
+;              426: goto 4 
+;              429: iconst_1 
+;              430: ifeq 25 
+;              433: new 104 (BFRoomAction) 
+;              436: dup 
+;              437: invokespecial 23 (BFRoomAction/<init> ()V) 
+;              440: dup 
+;              441: aload_0 
+;              442: swap 
+;              443: putfield 101 (Room/action LRoomAction;) 
+;              446: pop 
+;              447: iconst_3 
+;              448: dup 
+;              449: istore 4 
+;              451: pop 
+;              452: goto 217 
+;              455: iload 4 
+;              457: ldc 1 (40) 
+;              459: if_icmplt 7 
+;              462: iconst_0 
+;              463: goto 4 
+;              466: iconst_1 
+;              467: ifeq 25 
+;              470: new 184 (JokeRoomAction) 
+;              473: dup 
+;              474: invokespecial 44 (JokeRoomAction/<init> ()V) 
+;              477: dup 
+;              478: aload_0 
+;              479: swap 
+;              480: putfield 101 (Room/action LRoomAction;) 
+;              483: pop 
+;              484: iconst_4 
+;              485: dup 
+;              486: istore 4 
+;              488: pop 
+;              489: goto 180 
+;              492: iload 4 
+;              494: ldc 168 (50) 
+;              496: if_icmplt 7 
+;              499: iconst_0 
+;              500: goto 4 
+;              503: iconst_1 
+;              504: ifeq 25 
+;              507: new 166 (FeastRoomAction) 
+;              510: dup 
+;              511: invokespecial 111 (FeastRoomAction/<init> ()V) 
+;              514: dup 
+;              515: aload_0 
+;              516: swap 
+;              517: putfield 101 (Room/action LRoomAction;) 
+;              520: pop 
+;              521: iconst_5 
+;              522: dup 
+;              523: istore 4 
+;              525: pop 
+;              526: goto 143 
+;              529: iload 4 
+;              531: ldc 155 (62) 
+;              533: if_icmplt 7 
+;              536: iconst_0 
+;              537: goto 4 
+;              540: iconst_1 
+;              541: ifeq 26 
+;              544: new 162 (CoinRoomAction) 
+;              547: dup 
+;              548: invokespecial 10 (CoinRoomAction/<init> ()V) 
+;              551: dup 
+;              552: aload_0 
+;              553: swap 
+;              554: putfield 101 (Room/action LRoomAction;) 
+;              557: pop 
+;              558: ldc 36 (6) 
+;              560: dup 
+;              561: istore 4 
+;              563: pop 
+;              564: goto 105 
+;              567: iload 4 
+;              569: ldc 140 (72) 
+;              571: if_icmplt 7 
+;              574: iconst_0 
+;              575: goto 4 
+;              578: iconst_1 
+;              579: ifeq 26 
+;              582: new 178 (ExitRoomAction) 
+;              585: dup 
+;              586: invokespecial 27 (ExitRoomAction/<init> ()V) 
+;              589: dup 
+;              590: aload_0 
+;              591: swap 
+;              592: putfield 101 (Room/action LRoomAction;) 
+;              595: pop 
+;              596: ldc 35 (7) 
+;              598: dup 
+;              599: istore 4 
+;              601: pop 
+;              602: goto 67 
+;              605: iload 4 
+;              607: ldc 126 (85) 
+;              609: if_icmplt 7 
+;              612: iconst_0 
+;              613: goto 4 
+;              616: iconst_1 
+;              617: ifeq 26 
+;              620: new 67 (HuntRoomAction) 
+;              623: dup 
+;              624: invokespecial 80 (HuntRoomAction/<init> ()V) 
+;              627: dup 
+;              628: aload_0 
+;              629: swap 
+;              630: putfield 101 (Room/action LRoomAction;) 
+;              633: pop 
+;              634: ldc 34 (8) 
+;              636: dup 
+;              637: istore 4 
+;              639: pop 
+;              640: goto 29 
+;              643: new 78 (EmptyRoomAction) 
+;              646: dup 
+;              647: invokespecial 28 (EmptyRoomAction/<init> ()V) 
+;              650: dup 
+;              651: aload_0 
+;              652: swap 
+;              653: putfield 101 (Room/action LRoomAction;) 
+;              656: pop 
+;              657: aload_0 
+;              658: iconst_4 
+;              659: invokevirtual 2 (Room/randomRange (I)I) 
+;              662: ldc 33 (9) 
+;              664: iadd 
+;              665: dup 
+;              666: istore 4 
+;              668: pop 
+;              669: aload_0 
+;              670: iload 4 
+;              672: invokevirtual 42 (Room/generateDescription (I)Ljava/lang/String;) 
+;              675: dup 
+;              676: aload_0 
+;              677: swap 
+;              678: putfield 128 (Room/description Ljava/lang/String;) 
+;              681: pop 
+;              682: return 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+; methods[1] (offset 0xfee) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 54 (randomRange)
+;     descriptor_index 181 ((I)I)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 52
+;         max_stack 3
+;         max_locals 4
+;         code_length 40
+;         code :
+;                0: new 66 (joos/lib/JoosRandom) 
+;                3: dup 
+;                4: ldc 40 (1337) 
+;                6: invokespecial 153 (joos/lib/JoosRandom/<init> (I)V) 
+;                9: dup 
+;               10: astore_3 
+;               11: pop 
+;               12: aload_3 
+;               13: invokevirtual 98 (joos/lib/JoosRandom/nextInt ()I) 
+;               16: iload_1 
+;               17: irem 
+;               18: dup 
+;               19: istore_2 
+;               20: pop 
+;               21: iload_2 
+;               22: iconst_0 
+;               23: if_icmpge 7 
+;               26: iconst_0 
+;               27: goto 4 
+;               30: iconst_1 
+;               31: ifeq 5 
+;               34: iload_2 
+;               35: ireturn 
+;               36: iload_2 
+;               37: ineg 
+;               38: ireturn 
+;               39: nop 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+; methods[2] (offset 0x1030) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 172 (getDescription)
+;     descriptor_index 15 (()V)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 24
+;         max_stack 2
+;         max_locals 1
+;         code_length 12
+;         code :
+;                0: aload_0 
+;                1: getfield 170 (Room/io Ljoos/lib/JoosIO;) 
+;                4: aload_0 
+;                5: getfield 128 (Room/description Ljava/lang/String;) 
+;                8: invokevirtual 11 (joos/lib/JoosIO/println (Ljava/lang/String;)V) 
+;               11: return 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+; methods[3] (offset 0x1056) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 182 (getNorth)
+;     descriptor_index 29 (()LRoom;)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 18
+;         max_stack 1
+;         max_locals 1
+;         code_length 6
+;         code :
+;                0: aload_0 
+;                1: getfield 20 (Room/north LRoom;) 
+;                4: areturn 
+;                5: nop 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+; methods[4] (offset 0x1076) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 9 (getSouth)
+;     descriptor_index 29 (()LRoom;)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 18
+;         max_stack 1
+;         max_locals 1
+;         code_length 6
+;         code :
+;                0: aload_0 
+;                1: getfield 97 (Room/south LRoom;) 
+;                4: areturn 
+;                5: nop 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+; methods[5] (offset 0x1096) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 158 (getWest)
+;     descriptor_index 29 (()LRoom;)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 18
+;         max_stack 1
+;         max_locals 1
+;         code_length 6
+;         code :
+;                0: aload_0 
+;                1: getfield 25 (Room/west LRoom;) 
+;                4: areturn 
+;                5: nop 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+; methods[6] (offset 0x10b6) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 183 (getEast)
+;     descriptor_index 29 (()LRoom;)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 18
+;         max_stack 1
+;         max_locals 1
+;         code_length 6
+;         code :
+;                0: aload_0 
+;                1: getfield 61 (Room/east LRoom;) 
+;                4: areturn 
+;                5: nop 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+; methods[7] (offset 0x10d6) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 157 (getRoomAction)
+;     descriptor_index 120 (()LRoomAction;)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 18
+;         max_stack 1
+;         max_locals 1
+;         code_length 6
+;         code :
+;                0: aload_0 
+;                1: getfield 101 (Room/action LRoomAction;) 
+;                4: areturn 
+;                5: nop 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+; methods[8] (offset 0x10f6) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 56 (enterRoom)
+;     descriptor_index 15 (()V)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 151
+;         max_stack 2
+;         max_locals 1
+;         code_length 139
+;         code :
+;                0: aload_0 
+;                1: getfield 170 (Room/io Ljoos/lib/JoosIO;) 
+;                4: ldc 143 ("==========================================================") 
+;                6: invokevirtual 11 (joos/lib/JoosIO/println (Ljava/lang/String;)V) 
+;                9: aload_0 
+;               10: invokevirtual 84 (Room/getDescription ()V) 
+;               13: aload_0 
+;               14: getfield 101 (Room/action LRoomAction;) 
+;               17: invokevirtual 176 (RoomAction/describe ()V) 
+;               20: aload_0 
+;               21: getfield 170 (Room/io Ljoos/lib/JoosIO;) 
+;               24: ldc 119 ("There are exits:") 
+;               26: invokevirtual 11 (joos/lib/JoosIO/println (Ljava/lang/String;)V) 
+;               29: aload_0 
+;               30: invokevirtual 38 (Room/getNorth ()LRoom;) 
+;               33: aconst_null 
+;               34: if_acmpne 7 
+;               37: iconst_0 
+;               38: goto 4 
+;               41: iconst_1 
+;               42: ifeq 12 
+;               45: aload_0 
+;               46: getfield 170 (Room/io Ljoos/lib/JoosIO;) 
+;               49: ldc 109 (" -north") 
+;               51: invokevirtual 11 (joos/lib/JoosIO/println (Ljava/lang/String;)V) 
+;               54: aload_0 
+;               55: invokevirtual 14 (Room/getSouth ()LRoom;) 
+;               58: aconst_null 
+;               59: if_acmpne 7 
+;               62: iconst_0 
+;               63: goto 4 
+;               66: iconst_1 
+;               67: ifeq 12 
+;               70: aload_0 
+;               71: getfield 170 (Room/io Ljoos/lib/JoosIO;) 
+;               74: ldc 123 (" -south") 
+;               76: invokevirtual 11 (joos/lib/JoosIO/println (Ljava/lang/String;)V) 
+;               79: aload_0 
+;               80: invokevirtual 159 (Room/getWest ()LRoom;) 
+;               83: aconst_null 
+;               84: if_acmpne 7 
+;               87: iconst_0 
+;               88: goto 4 
+;               91: iconst_1 
+;               92: ifeq 12 
+;               95: aload_0 
+;               96: getfield 170 (Room/io Ljoos/lib/JoosIO;) 
+;               99: ldc 146 (" -west") 
+;              101: invokevirtual 11 (joos/lib/JoosIO/println (Ljava/lang/String;)V) 
+;              104: aload_0 
+;              105: invokevirtual 151 (Room/getEast ()LRoom;) 
+;              108: aconst_null 
+;              109: if_acmpne 7 
+;              112: iconst_0 
+;              113: goto 4 
+;              116: iconst_1 
+;              117: ifeq 12 
+;              120: aload_0 
+;              121: getfield 170 (Room/io Ljoos/lib/JoosIO;) 
+;              124: ldc 167 (" -east") 
+;              126: invokevirtual 11 (joos/lib/JoosIO/println (Ljava/lang/String;)V) 
+;              129: aload_0 
+;              130: getfield 170 (Room/io Ljoos/lib/JoosIO;) 
+;              133: ldc 137 ("") 
+;              135: invokevirtual 11 (joos/lib/JoosIO/println (Ljava/lang/String;)V) 
+;              138: return 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+; methods[9] (offset 0x119b) :
+;     access_flags 0x1 [ ACC_PUBLIC ]
+;     name_index 53 (generateDescription)
+;     descriptor_index 24 ((I)Ljava/lang/String;)
+;     attributes_count 1
+;     method_attributes[0] :
+;         name_index 121 (Code)
+;         attribute_length 270
+;         max_stack 2
+;         max_locals 2
+;         code_length 258
+;         code :
+;                0: iload_1 
+;                1: iconst_0 
+;                2: if_icmpeq 7 
+;                5: iconst_0 
+;                6: goto 4 
+;                9: iconst_1 
+;               10: ifeq 9 
+;               13: ldc 113 ("It is pitch black. You are likely to be eaten by a grue.") 
+;               15: areturn 
+;               16: goto 241 
+;               19: iload_1 
+;               20: iconst_1 
+;               21: if_icmpeq 7 
+;               24: iconst_0 
+;               25: goto 4 
+;               28: iconst_1 
+;               29: ifeq 9 
+;               32: ldc 169 ("You are in a large hall. Centered in this otherwise empty and silent room is an alabaster pedestal.") 
+;               34: areturn 
+;               35: goto 222 
+;               38: iload_1 
+;               39: iconst_2 
+;               40: if_icmpeq 7 
+;               43: iconst_0 
+;               44: goto 4 
+;               47: iconst_1 
+;               48: ifeq 9 
+;               51: ldc 112 ("You are in a small room. On the east wall, there is a large rusty panel. At the top, two numbered dials spin rapidly, followed by an exclamation point. Below, there are 9 numbered dials spinning.") 
+;               53: areturn 
+;               54: goto 203 
+;               57: iload_1 
+;               58: iconst_3 
+;               59: if_icmpeq 7 
+;               62: iconst_0 
+;               63: goto 4 
+;               66: iconst_1 
+;               67: ifeq 9 
+;               70: ldc 136 ("You are in a dusty padded room. On a simple desk in the middle of the room, a terminal displays '++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.'.") 
+;               72: areturn 
+;               73: goto 184 
+;               76: iload_1 
+;               77: iconst_4 
+;               78: if_icmpeq 7 
+;               81: iconst_0 
+;               82: goto 4 
+;               85: iconst_1 
+;               86: ifeq 9 
+;               89: ldc 163 ("You are in into a delapidated theater. The seats are empty and broken, the banners all ripped to shreds. Yet standing behind a splintered podium at the center of the stage, a lanky, bald man stands patiently.") 
+;               91: areturn 
+;               92: goto 165 
+;               95: iload_1 
+;               96: iconst_5 
+;               97: if_icmpeq 7 
+;              100: iconst_0 
+;              101: goto 4 
+;              104: iconst_1 
+;              105: ifeq 9 
+;              108: ldc 45 ("You are in a large banquet hall. Spread before you on a table long enough to seat a hundred people is a feast of unimaginable bounty, but there is nobody here. As you walk along it, you see your favorite foods nestled in between delicious-looking foods that you cannot even name.") 
+;              110: areturn 
+;              111: goto 146 
+;              114: iload_1 
+;              115: ldc 36 (6) 
+;              117: if_icmpeq 7 
+;              120: iconst_0 
+;              121: goto 4 
+;              124: iconst_1 
+;              125: ifeq 9 
+;              128: ldc 127 ("You are in a dark cave through which a small bubbling creek passes. There are a dozen skeletons, all resting alongside this stream. You search them for valuables.") 
+;              130: areturn 
+;              131: goto 126 
+;              134: iload_1 
+;              135: ldc 35 (7) 
+;              137: if_icmpeq 7 
+;              140: iconst_0 
+;              141: goto 4 
+;              144: iconst_1 
+;              145: ifeq 9 
+;              148: ldc 107 ("You are in a hall with nothing of note other than a lone stone staircase rising up into the air before you. It does not appear to be supported by anything.") 
+;              150: areturn 
+;              151: goto 106 
+;              154: iload_1 
+;              155: ldc 34 (8) 
+;              157: if_icmpeq 7 
+;              160: iconst_0 
+;              161: goto 4 
+;              164: iconst_1 
+;              165: ifeq 9 
+;              168: ldc 134 ("You are in a forest. You hear the leaves rustling in the wind.") 
+;              170: areturn 
+;              171: goto 86 
+;              174: iload_1 
+;              175: ldc 33 (9) 
+;              177: if_icmpeq 7 
+;              180: iconst_0 
+;              181: goto 4 
+;              184: iconst_1 
+;              185: ifeq 9 
+;              188: ldc 64 ("You see before you a vast desert. High overhead, vultures are circling above.") 
+;              190: areturn 
+;              191: goto 66 
+;              194: iload_1 
+;              195: ldc 51 (10) 
+;              197: if_icmpeq 7 
+;              200: iconst_0 
+;              201: goto 4 
+;              204: iconst_1 
+;              205: ifeq 9 
+;              208: ldc 16 ("You are in a small cottage. It looks like nobody's lived here for a long time, and a thick layer of dust covers everything.") 
+;              210: areturn 
+;              211: goto 46 
+;              214: iload_1 
+;              215: ldc 50 (11) 
+;              217: if_icmpeq 7 
+;              220: iconst_0 
+;              221: goto 4 
+;              224: iconst_1 
+;              225: ifeq 9 
+;              228: ldc 125 ("You find yourself in a completely white room with no features other than the exits. You cannot tell whether the white ceiling is nearby or far away, and it's too far away to reach.") 
+;              230: areturn 
+;              231: goto 26 
+;              234: iload_1 
+;              235: ldc 48 (12) 
+;              237: if_icmpeq 7 
+;              240: iconst_0 
+;              241: goto 4 
+;              244: iconst_1 
+;              245: ifeq 9 
+;              248: ldc 86 ("You are in a large underground cavern.") 
+;              250: areturn 
+;              251: goto 6 
+;              254: ldc 156 ("You are in a non-descript room. How did you get here?") 
+;              256: areturn 
+;              257: nop 
+;         exception_table_length 0
+;         attributes_count 0
+
+
+
+; attributes_count 1
+
+; class_attributes[0] (offset 0x12b9) :
+;     name_index 141 (SourceFile)
+;     attribute_length 2
+;     sourcefile_index 74
+
+; End of file reached successfully. Enjoy :)
