@@ -1433,7 +1433,7 @@ int goto_return(CODE **c){
 
 /*
 return/areturn/ireturn
-(non-label line)
+(non-label line) (and not a nop)
 ->
 return/areturn/ireturn
 */
@@ -1441,17 +1441,20 @@ int after_return_unreachable(CODE **c){
   int label;
   if(is_return(*c)
   && next(*c)!=NULL
-  && !is_label(next(*c), &label)){
+  && !is_label(next(*c), &label)
+  && !is_nop(next(*c))){
     return replace_modified(c, 2, makeCODEreturn(NULL));
   }
   if(is_areturn(*c)
   && next(*c)!=NULL
-  && !is_label(next(*c), &label)){
+  && !is_label(next(*c), &label)
+  && !is_nop(next(*c))){
     return replace_modified(c, 2, makeCODEareturn(NULL));
   }
   if(is_ireturn(*c)  
   && next(*c)!=NULL
-  && !is_label(next(*c), &label)){
+  && !is_label(next(*c), &label)
+  && !is_nop(next(*c))){
     return replace_modified(c, 2, makeCODEireturn(NULL));
   }
 
