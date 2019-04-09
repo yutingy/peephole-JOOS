@@ -487,58 +487,6 @@ int after_goto_unreachable(CODE **c){
 }
 
 
-/*
-ldc_int k (k != 0)      ldc_int 0                     ldc_int k (k != 0)      ldc_int 0
-ifcmpeq label           ifcmpeq label                 ifcmpneq label          ifcmpneq label
-...                     ...(any non-label line)       ... (any non label)     ...
-->                      ->                            ->                      ->
-ldc_int k               goto label                    goto label              ldc_int 0
-...                     ...(unreachable code)         ...(unreachable code)   ...
-
-for cases 1 and 4, drop the label counts by 1
-the unreachable code will be fixed with the above after_goto_unreachable function
-unreachable code is the same code as the non-label line
-
-this won't respect stack height consistency
-*/
-
-int trim_branching_unreachables(CODE **c){
-
-  int k, label, nextline;
-  
-  if(is_ldc_int(*c, &k)
-  && is_if_icmpeq(next(*c), &label)
-  && k!=0){
-    droplabel(label);
-    return replace(c, 2, makeCODEldc_int(k, NULL));
-  }
-
-  if(is_ldc_int(*c, &k)
-  && is_if_icmpne(next(*c), &label)
-  && k==0){
-    droplabel(label);
-    return replace(c, 2, makeCODEldc_int(0, NULL));
-  }
-
-  if(is_ldc_int(*c, &k)
-  && is_if_icmpeq(next(*c), &label)
-  && !is_label(next(next(*c)), &nextline)
-  && k==0){
-    return replace(c, 3, makeCODEgoto(label, NULL));
-  }
-
-  if(is_ldc_int(*c, &k)
-  && is_if_icmpne(next(*c), &label)
-  && !is_label(next(next(*c)), &nextline)
-  && k!=0){
-    return replace(c, 3, makeCODEgoto(label, NULL));
-  }
-
-  return 0;
-
-}
-
-
 /* iload x
  * ldc k   (0<=k<=127)
  * isub
@@ -905,7 +853,6 @@ int simplify_if_gotos2(CODE **c){
     return replace(c, 9, makeCODEifne(label5, makeCODEldc_int(1, NULL)));
   }
 
-/*follow this above one*/
   if(is_ifne(*c, &label1)
   && is_ldc_int(next(*c), &x)
   && x==0
@@ -1138,31 +1085,6 @@ int simplify_if_gotos2(CODE **c){
 
   return 0;
 
-}
-
-/*
-dup
-ifeq or ifne
-pop
-->
-ifeq or ifne
-
-doesn't work
-*/
-int dup_if_pop(CODE **c){
-  int label;
-  if(is_dup(*c)
-  && is_ifeq(next(*c), &label)
-  && is_pop(next(next(*c)))){
-    return replace(c, 3, makeCODEifeq(label, NULL));
-  }
-
-  if(is_dup(*c)
-  && is_ifne(next(*c), &label)
-  && is_pop(next(next(*c)))){
-    return replace(c, 3, makeCODEifne(label, NULL));
-  }
-  return 0;
 }
 
 /*
@@ -1441,20 +1363,17 @@ int after_return_unreachable(CODE **c){
   int label;
   if(is_return(*c)
   && next(*c)!=NULL
-  && !is_label(next(*c), &label)
-  && !is_nop(next(*c))){
+  && !is_label(next(*c), &label)){
     return replace_modified(c, 2, makeCODEreturn(NULL));
   }
   if(is_areturn(*c)
   && next(*c)!=NULL
-  && !is_label(next(*c), &label)
-  && !is_nop(next(*c))){
+  && !is_label(next(*c), &label)){
     return replace_modified(c, 2, makeCODEareturn(NULL));
   }
   if(is_ireturn(*c)  
   && next(*c)!=NULL
-  && !is_label(next(*c), &label)
-  && !is_nop(next(*c))){
+  && !is_label(next(*c), &label)){
     return replace_modified(c, 2, makeCODEireturn(NULL));
   }
 
@@ -1462,26 +1381,7 @@ int after_return_unreachable(CODE **c){
 }
 
 
-/*
-L1: (no references)
-L2:
-->
-L1:
-(removed L2)
 
-This didn't seem to reduce code size according to count.sh, but I noticed the change in the .j files while testing
-so I am keeping it.
-*/
-int killDeadLabels(CODE **c){
-  int label1, label2;
-  if(is_label(*c, &label1)
-  && is_label(next(*c), &label2)){
-    if(deadlabel(label2)){
-      return replace(c, 2, makeCODElabel(label1, NULL));
-    }
-  }
-  return 0;
-}
 
 /*
 ifeq label1
@@ -1491,7 +1391,7 @@ label1:
 ifne label2
 label1: (ref count dropped)
 
-and similar for other opposing branching (gt-le, ge-lt, null-nonnull),
+and similar for other opposing branching (gt-le, ge-lt, null-nonnull, acmpeq-acmpne),
 */
 int simplify_ifs_gotos(CODE **c){
 
@@ -1583,6 +1483,22 @@ int simplify_ifs_gotos(CODE **c){
   && label1==label3){
     droplabel(label1);
     return replace(c, 2, makeCODEifnonnull(label2, NULL));
+  }
+
+  if(is_if_acmpeq(*c, &label1)
+  && is_goto(next(*c), &label2)
+  && is_label(next(next(*c)),&label3)
+  && label1==label3){
+    droplabel(label1);
+    return replace(c, 2, makeCODEif_acmpne(label2, NULL));
+  }
+
+  if(is_if_acmpne(*c, &label1)
+  && is_goto(next(*c), &label2)
+  && is_label(next(next(*c)),&label3)
+  && label1==label3){
+    droplabel(label1);
+    return replace(c, 2, makeCODEif_acmpeq(label2, NULL));
   }
 
   return 0;
@@ -1678,6 +1594,20 @@ int goto_another_conditional(CODE **c){
     return replace(c, 1, makeCODEifnull(label2, NULL));
   }
 
+  if((is_goto(*c, &label1))
+  && is_if_acmpeq(next(destination(label1)), &label2)){
+    droplabel(label1);
+    copylabel(label2);
+    return replace(c, 1, makeCODEif_acmpeq(label2, NULL));
+  }
+
+  if((is_goto(*c, &label1))
+  && is_if_acmpne(next(destination(label1)), &label2)){
+    droplabel(label1);
+    copylabel(label2);
+    return replace(c, 1, makeCODEif_acmpne(label2, NULL));
+  }
+
   return 0;
 
 }
@@ -1707,29 +1637,7 @@ int store_load(CODE **c){
 
 }
 
-/* this pattern will be caused by astore_aload as well
-dup         dup       
-astore k    istore k  
-areturn     ireturn   
-->          ->
-areturn     ireturn
-*/
-int dup_store_return(CODE **c){
-  int k;
-  if(is_dup(*c)
-  && is_astore(next(*c), &k)
-  && is_areturn(next(next(*c)))){
-    return replace(c, 3, makeCODEareturn(NULL));
-  }
 
-  if(is_dup(*c)
-  && is_astore(next(*c), &k)
-  && is_ireturn(next(next(*c)))){
-    return replace(c, 3, makeCODEireturn(NULL));
-  }
-
-  return 0;
-}
 
 /*Interpretor.j bench02
 
@@ -1757,76 +1665,33 @@ int putfield_dup_pop(CODE **c){
 }
 
 /*
-ldc_int, ldc_string
-dup
-ifnull label
+aconst_null
+if_acmpeq label
 ->
-ldc_int, ldc_string (same as above)
+ifnull label 
 
-
-and label has references dropped by 1
+aconst_null
+if_acmpne label
+->
+ifnonnull label
 */
-int load_dup_ifnull(CODE **c){
-  int label, k;
-  char* str;
+int loadnull_acmp(CODE **c){
+  int label;
 
-  if(is_ldc_int(*c, &k)
-  && is_dup(next(*c))
-  && is_ifnull(next(next(*c)), &label)){
-    droplabel(label);
-    return replace(c, 3, makeCODEldc_int(k, NULL));
+  if(is_aconst_null(*c)
+  && is_if_acmpeq(next(*c), &label)){
+    return replace(c, 2, makeCODEifnull(label, NULL));
   }
 
-  if(is_ldc_string(*c, &str)
-  && is_dup(next(*c))
-  && is_ifnull(next(next(*c)), &label)){
-    droplabel(label);
-    
-    return replace(c, 3, makeCODEldc_string(str, NULL));
+  if(is_aconst_null(*c)
+  && is_if_acmpne(next(*c), &label)){
+    return replace(c, 2, makeCODEifnonnull(label, NULL));
   }
-
+  
   return 0;
 }
 
-/* bench02
-ldc_string str
-dup
-ifnull label1
-goto label2
-label1:
-pop
-ldc_string "null"
-label2:
-->
-if str is null, ->ldc_string "null"
-else            ->ldc_string str
-*/
-int loadstring_dup_ifnull(CODE **c){
 
-  char* str;
-  int label1, label2, label3, label4;
-  if(is_ldc_string(*c, &str)
-  && is_dup(next(*c))
-  && is_ifnull(next(next(*c)), &label1)
-  && is_goto(next(next(next(*c))), &label2)
-  && is_label(nextby(*c, 4), &label3)
-  && label1==label3
-  && is_pop(nextby(*c, 5))
-  && is_ldc_string(nextby(*c, 6), &str)
-  && is_label(nextby(*c, 7), &label4) 
-  && label2==label4){
-    droplabel(label1);
-    droplabel(label2);
-    if(str == NULL){
-      return replace(c, 8, makeCODEldc_string("null", NULL));
-    }
-    else{
-      return replace(c, 8, makeCODEldc_string(str, NULL));
-    }
-  }
-
-  return 0;
-}
 
 /* seen in bench04 
 iload x
@@ -1838,7 +1703,7 @@ iload x
 istore k
 iinc k -y
 */
-int arithmetic_with_ones(CODE **c){
+int stack_arithmetic_store(CODE **c){
   int x,y,k;
 
   if(is_iload(*c, &x)
@@ -1863,6 +1728,85 @@ int arithmetic_with_ones(CODE **c){
 
 }
 
+/*
+
+label: [dead]
+nop
+.endmethod
+->
+.endmethod
+
+*/
+int purge_nop_label(CODE **c){
+  int label;
+  if(is_label(*c, &label)
+  && is_nop(next(*c))
+  && deadlabel(label)
+  && next(*c)==NULL){
+    return replace(c, 2, NULL);
+  }
+  return 0;
+}
+
+/*
+nop
+->
+
+as long as it is not the case of purge_nop_label
+*/
+int purge_nop(CODE **c){
+  if(is_nop(*c)
+  && next(*c)!=NULL){
+    return replace(c, 1, NULL);
+  }
+  return 0;
+}
+
+/*
+label1:
+goto label2:
+...
+label2: [unique]
+nop
+.endmethod
+->
+label1:
+nop
+...
+label2: [dead]
+nop
+.endmethod
+
+this will be further reduced with purge_nop_label function above
+*/
+int goto_goto_nop_end(CODE **c){
+  int label1, label2;
+  if(is_label(*c, &label1)
+  && is_goto(next(*c), &label2)
+  && uniquelabel(label2)
+  && is_nop(next(destination(label2)))
+  && next(next(destination(label2)))==NULL){
+    droplabel(label2);
+    return replace(c, 2, makeCODElabel(label1, makeCODEnop(NULL)));
+  }
+  return 0;
+}
+
+/*
+label: [dead]
+->
+
+*/
+int remove_dead_labels(CODE **c){
+  int label;
+
+  if(is_label(*c, &label) && deadlabel(label)){
+    return replace(c, 1, NULL);
+  }
+
+  return 0;
+}
+
 
 void init_patterns(void) {
 	ADD_PATTERN(simplify_multiplication_right);
@@ -1871,7 +1815,7 @@ void init_patterns(void) {
 	ADD_PATTERN(simplify_goto_goto);
 
   
-  ADD_PATTERN(load_dup_ifnull);
+
   ADD_PATTERN(simplify_istore);
   ADD_PATTERN(simplify_multiplication_left);
   ADD_PATTERN(simplify_division_right);
@@ -1892,11 +1836,15 @@ void init_patterns(void) {
   ADD_PATTERN(simplify_load_zero_icmp);
   ADD_PATTERN(compare_constants);
   ADD_PATTERN(putfield_dup_pop);
-  ADD_PATTERN(dup_store_return);
-  ADD_PATTERN(loadstring_dup_ifnull);
-  ADD_PATTERN(killDeadLabels);
+  ADD_PATTERN(purge_nop_label);
+  ADD_PATTERN(purge_nop);
+  ADD_PATTERN(goto_goto_nop_end);
+  ADD_PATTERN(simplify_double_label);
   ADD_PATTERN(simplify_if_gotos);
+  ADD_PATTERN(stack_arithmetic_store);
+  ADD_PATTERN(remove_dead_labels);
 
+  ADD_PATTERN(loadnull_acmp);
 
 
   /*
@@ -1909,20 +1857,12 @@ void init_patterns(void) {
 
 
 
-    ADD_PATTERN(trim_branching_unreachables);
     
-  ADD_PATTERN(simplify_double_label);
 
 
 
 
-  ADD_PATTERN(dup_if_pop);
 
-
-  ADD_PATTERN(arithmetic_with_ones);
-
-
-this one seems to destroy performance??
 
   */
 }
