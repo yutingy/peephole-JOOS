@@ -95,21 +95,8 @@ int simplify_goto_goto(CODE **c)
 }
 
 /*********************************************************
- * 
- * 
  * Our patterns
- * 
  * Group 06
- * Yu Ting Gu
- * Su Yu
- * Simon Zheng
- * 
- * 
- * 
- * 
- * 
- * 
- * 
  * ********************************************************/
 
 
@@ -272,11 +259,13 @@ int load_branch_null(CODE **c){
   char *str;
   if(is_ldc_string(*c, &str)
   && is_ifnull(next(*c), &label)){
+    droplabel(label);
     return replace(c, 2, NULL);
   }
 
   if(is_aconst_null(*c)
   && is_ifnonnull(next(*c), &label)){
+    droplabel(label);
     return replace(c, 2, NULL);
   }
 
@@ -1141,7 +1130,7 @@ goto label2:
 label1: (ref count dropped by 1)
 label2: (ref count increased by 1) 
 
-same with all other ways of branching: ifeq, ifne, if_icmpeq, if_icmpne,if_icmpge, if_icmpgt, if_icmple, if_icmpge, ifnull, ifnonnull
+same with all other ways of branching: ifeq, ifne, if_icmpeq, if_icmpne,if_icmpge, if_icmpgt, if_icmple, if_icmpge, ifnull, ifnonnull,acmp
 
 this will eventually remove the label label1
 */
@@ -1222,6 +1211,20 @@ int simplify_double_label(CODE **c){
     droplabel(label1);
     copylabel(label2);
     return replace(c, 1, makeCODEifnull(label2, NULL));
+  }
+
+  if(is_if_acmpeq(*c, &label1)
+  && is_label(next(destination(label1)), &label2) && label1 > label2){
+    droplabel(label1);
+    copylabel(label2);
+    return replace(c, 1, makeCODEif_acmpeq(label2, NULL));
+  }
+
+  if(is_if_acmpne(*c, &label1)
+  && is_label(next(destination(label1)), &label2) && label1 > label2){
+    droplabel(label1);
+    copylabel(label2);
+    return replace(c, 1, makeCODEif_acmpne(label2, NULL));
   }
 
   return 0;
@@ -1753,6 +1756,7 @@ int simplify_bench05_branching(CODE **c){
 
 
 
+
 void init_patterns(void) {
 	ADD_PATTERN(simplify_multiplication_right);
 	ADD_PATTERN(simplify_astore);
@@ -1788,11 +1792,11 @@ void init_patterns(void) {
   ADD_PATTERN(stack_arithmetic_store);
   ADD_PATTERN(simplify_bench05_branching);
 
-  
+
   /*
 
-
-    ADD_PATTERN(remove_dead_labels);
+  commented out because it causes issues with simplify_bench05_branching, but the latter reduces code size better
+      ADD_PATTERN(remove_dead_labels);
 
 
 
