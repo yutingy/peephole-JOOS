@@ -431,7 +431,8 @@ int swap(CODE **c){
 dup                                               dup                     
 if_icmpeq label (or if_icmpge, if_icmple)         if_icmpne label      (or if_icmpgt, if_icmplt)
 ->                                                ->
-goto label (and pop stack)                        pop (drop count on label)
+pop                                               pop (drop count on label)
+goto label
 
 first case does not actually reduce code size 
 and same with if_acmpeq and if_acmpne 
@@ -446,7 +447,7 @@ int dup_stack_compares(CODE **c){
     /* first, icmpeq and icmpne */
     
     if(is_if_icmpeq(next(*c), &label) || is_if_icmpge(next(*c), &label) || is_if_icmple(next(*c), &label)){
-      return replace(c, 2, makeCODEgoto(label,makeCODEpop(NULL)));
+      return replace(c, 2, makeCODEpop(makeCODEgoto(label, NULL)));
     }
     if(is_if_icmpne(next(*c), &label) || is_if_icmpgt(next(*c), &label) || is_if_icmplt(next(*c), &label)){
       droplabel(label);
@@ -456,7 +457,7 @@ int dup_stack_compares(CODE **c){
     /* same thing, with acmpeq and acmpne */
 
     if(is_if_acmpeq(next(*c), &label)){
-      return replace(c, 2, makeCODEgoto(label,makeCODEpop(NULL)));
+      return replace(c, 2, makeCODEpop(makeCODEgoto(label, NULL)));
     } 
     if(is_if_acmpne(next(*c), &label)){
       droplabel(label);
@@ -1123,98 +1124,7 @@ int simplify_load_zero_icmp(CODE **c){
 }
 
 
-/*
-ldc_int x
-ldc_int y
-if_icmp label (any type of compare)
-->evaluate x compare y in this function
-goto label (according to the result of the comparison)
-*/
-int compare_constants(CODE **c){
-  int x, y, label;
 
-  /* icmpeq */
-  if(is_ldc_int(*c, &x)
-  && is_ldc_int(next(*c), &y)
-  && is_if_icmpeq(next(next(*c)), &label)){
-    if(x==y){
-      return replace(c, 3, makeCODEgoto(label, NULL));
-    }
-    else{
-      droplabel(label);
-      return replace(c, 3, NULL);
-    }
-
-  }
-  /* icmpne */
-  if(is_ldc_int(*c, &x)
-  && is_ldc_int(next(*c), &y)
-  && is_if_icmpne(next(next(*c)), &label)){
-    if(x!=y){
-      return replace(c, 3, makeCODEgoto(label, NULL));
-    }
-    else{
-      droplabel(label);
-      return replace(c, 3, NULL);
-    }
-
-  }
-  /* icmpge */
-  if(is_ldc_int(*c, &x)
-  && is_ldc_int(next(*c), &y)
-  && is_if_icmpge(next(next(*c)), &label)){
-    if(x>=y){
-      return replace(c, 3, makeCODEgoto(label, NULL));
-    }
-    else{
-      droplabel(label);
-      return replace(c, 3, NULL);
-    }
-
-  }
-  /* icmple */
-  if(is_ldc_int(*c, &x)
-  && is_ldc_int(next(*c), &y)
-  && is_if_icmple(next(next(*c)), &label)){
-    if(x<=y){
-      return replace(c, 3, makeCODEgoto(label, NULL));
-    }
-    else{
-      droplabel(label);
-      return replace(c, 3, NULL);
-    }
-
-  }
-  /* icmpgt */
-  if(is_ldc_int(*c, &x)
-  && is_ldc_int(next(*c), &y)
-  && is_if_icmpgt(next(next(*c)), &label)){
-    if(x>y){
-      return replace(c, 3, makeCODEgoto(label, NULL));
-    }
-    else{
-      droplabel(label);
-      return replace(c, 3, NULL);
-    }
-
-  }
-  /* icmplt */
-  if(is_ldc_int(*c, &x)
-  && is_ldc_int(next(*c), &y)
-  && is_if_icmplt(next(next(*c)), &label)){
-    if(x<y){
-      return replace(c, 3, makeCODEgoto(label, NULL));
-    }
-    else{
-      droplabel(label);
-      return replace(c, 3, NULL);
-    }
-
-  }
-
-  return 0;
-
-}
 
 
 
@@ -1741,26 +1651,12 @@ int purge_nop_label(CODE **c){
   int label;
   if(is_label(*c, &label)
   && is_nop(next(*c))
-  && deadlabel(label)
-  && next(*c)==NULL){
+  && deadlabel(label)){
     return replace(c, 2, NULL);
   }
   return 0;
 }
 
-/*
-nop
-->
-
-as long as it is not the case of purge_nop_label
-*/
-int purge_nop(CODE **c){
-  if(is_nop(*c)
-  && next(*c)!=NULL){
-    return replace(c, 1, NULL);
-  }
-  return 0;
-}
 
 /*
 label1:
@@ -1808,6 +1704,55 @@ int remove_dead_labels(CODE **c){
 }
 
 
+/* bench05 treasureroomaction.j
+
+condition true -> [1] -> [1 1] -> [1] at label3
+          false -> [0]-> [0 0] -> [0] -> [] (popped at pop line)
+
+if_icmpge label0
+iconst 0
+goto label1
+label0: [unique]
+iconst 1
+label1: [unique]
+dup
+ifne label3
+pop
+...
+label3:
+->
+if_icmplt label1
+iconst 1 
+goto label3
+label1:
+...
+label3:
+*/
+
+int simplify_bench05_branching(CODE **c){
+  int x, y, label0, label1, label2, label3, label4;
+
+  if(is_if_icmpge(*c, &label0)
+  && is_ldc_int(next(*c), &x)
+  && is_goto(nextby(*c, 2), &label1)
+  && is_label(nextby(*c,3), &label2) && label0==label2
+  && is_ldc_int(nextby(*c, 4), &y)
+  && x==0 && y==1
+  && is_label(nextby(*c, 5), &label3) 
+  && label1==label3 && uniquelabel(label1) && uniquelabel(label0)
+  && is_dup(nextby(*c, 6))
+  && is_ifne(nextby(*c,7), &label4)
+  && is_pop(nextby(*c, 8))){
+    droplabel(label4);
+    return replace(c, 9, makeCODEif_icmplt(label1, makeCODEldc_int(1, makeCODEgoto(label4, makeCODElabel(label1, NULL)))));
+  }
+
+  return 0;
+
+}
+
+
+
 void init_patterns(void) {
 	ADD_PATTERN(simplify_multiplication_right);
 	ADD_PATTERN(simplify_astore);
@@ -1834,26 +1779,20 @@ void init_patterns(void) {
   ADD_PATTERN(store_load);
   ADD_PATTERN(simplify_ifs_gotos);
   ADD_PATTERN(simplify_load_zero_icmp);
-  ADD_PATTERN(compare_constants);
   ADD_PATTERN(putfield_dup_pop);
   ADD_PATTERN(purge_nop_label);
-  ADD_PATTERN(purge_nop);
   ADD_PATTERN(goto_goto_nop_end);
   ADD_PATTERN(simplify_double_label);
   ADD_PATTERN(simplify_if_gotos);
-  ADD_PATTERN(stack_arithmetic_store);
-  ADD_PATTERN(remove_dead_labels);
-
   ADD_PATTERN(loadnull_acmp);
+  ADD_PATTERN(stack_arithmetic_store);
+  ADD_PATTERN(simplify_bench05_branching);
 
-
+  
   /*
 
 
-  ADD_PATTERN(simplify_if_gotos2);
-
-
-
+    ADD_PATTERN(remove_dead_labels);
 
 
 
